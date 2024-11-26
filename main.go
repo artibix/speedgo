@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"speedgo/commands"
+	"speedgo/core"
 )
 
 func main() {
@@ -50,7 +51,7 @@ func pingCommand(args []string) {
 		commands.PingCmd.Usage()
 		os.Exit(0)
 	}
-	//cmd.RunPing(args)
+	core.RunPing(args)
 }
 
 func downloadCommand(args []string) {

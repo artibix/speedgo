@@ -1,14 +1,16 @@
 package commands
 
-import "flag"
+import (
+	"flag"
+	"time"
+)
 
-var UploadCmd = flag.NewFlagSet("upload", flag.ExitOnError)
+var DownloadCmd = flag.NewFlagSet("download", flag.ExitOnError)
 
 func init() {
-	UploadCmd.String("url", "", "URL to upload to (required)")
-	UploadCmd.String("file", "", "Path to file for upload (optional, if not provided, generates test data)")
-	UploadCmd.Int("size", 10, "Size of test data to generate in MB (ignored if file is specified)")
-	UploadCmd.Int("chunk", 1, "Size of each chunk in MB (default: 1MB)")
-	UploadCmd.Int("retries", 3, "Number of retries for failed chunks")
-	UploadCmd.Bool("verbose", false, "Enable detailed output")
+	DownloadCmd.String("url", "", "URL to download from (required)")
+	DownloadCmd.Duration("duration", time.Second*30, "Maximum download duration")
+	DownloadCmd.Int("concurrency", 4, "Number of concurrent download chunks")
+	DownloadCmd.String("output", "", "Output file path (optional)")
+	DownloadCmd.Bool("verbose", false, "Enable detailed output")
 }

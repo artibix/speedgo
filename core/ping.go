@@ -124,7 +124,7 @@ func pingTargets(ctx context.Context, config *PingConfig) []PingResult {
 			semaphore <- struct{}{}
 			defer func() { <-semaphore }()
 
-			results[idx] = pingTarget(ctx, target, config)
+			results[idx] = PingTarget(ctx, target, config)
 			if config.Verbose {
 				fmt.Printf("Completed ping to %s\n", target)
 			}
@@ -135,7 +135,7 @@ func pingTargets(ctx context.Context, config *PingConfig) []PingResult {
 	return results
 }
 
-func pingTarget(ctx context.Context, target string, config *PingConfig) PingResult {
+func PingTarget(ctx context.Context, target string, config *PingConfig) PingResult {
 	result := PingResult{
 		Target: target,
 		RTTs:   make([]time.Duration, 0, config.Count),
@@ -325,3 +325,8 @@ func printResults(results []PingResult) {
 }
 
 const protocolICMP = 1
+
+// PingTargets exports the pingTargets function for mobile use
+func PingTargets(ctx context.Context, config *PingConfig) []PingResult {
+	return PingTargets(ctx, config)
+}
